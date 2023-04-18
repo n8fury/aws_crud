@@ -85,3 +85,19 @@ def getProduct(productID):
 
 
 
+def getProducts():
+    try:
+        response = table.scan()
+        result = response['Items']
+
+        while 'LastEvaluatedKey' in response:
+            response = table.scan(
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            result.extend(response['Items'])
+
+        body = {
+            'products': response
+        }
+        return buildResponse(200, body)
+    except Exception as e:
+        logger.exception(e)
