@@ -140,4 +140,26 @@ def modifyProduct(productID, updateKey, updateValue):
         }
         return buildResponse(200, body)
     except Exception as e:
-        logger.exception(e)                
+        logger.exception(e)
+
+
+
+
+
+def deleteProduct(productID):
+    try:
+        response = table.delete_item(
+            Key={
+                'productId': productID
+            },
+            ReturnValues='ALL_OLD'
+        )
+        body = {
+            'Operation': 'DELETE',
+            'Message': 'Success',
+            'DeletedAttributes': response
+        }
+
+        return buildResponse(200, body)
+    except Exception as e:
+        logger.exception(e)
