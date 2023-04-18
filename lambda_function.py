@@ -81,8 +81,6 @@ def getProduct(productID):
 
     except Exception as e:
         logger.exception(e)
-        
-
 
 
 def getProducts():
@@ -101,7 +99,6 @@ def getProducts():
         return buildResponse(200, body)
     except Exception as e:
         logger.exception(e)
-
 
 
 def saveProduct(requestBody):
@@ -141,9 +138,6 @@ def modifyProduct(productID, updateKey, updateValue):
         return buildResponse(200, body)
     except Exception as e:
         logger.exception(e)
-
-
-
 
 
 def deleteProduct(productID):
