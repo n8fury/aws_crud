@@ -65,3 +65,23 @@ def lambda_handler(event, context):
         response = buildResponse(404, 'Not Found')
 
     return response
+
+
+def getProduct(productID):
+    try:
+        response = table.get_item(
+            Key={
+                'productId': productID
+            }
+        )
+        if 'item' in response:
+            return buildResponse(200, response['item'])
+        else:
+            return buildResponse(404, {'Message': 'ProductID %s not found' % productID})
+
+    except Exception as e:
+        logger.exception(e)
+        
+
+
+
