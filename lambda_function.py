@@ -101,3 +101,21 @@ def getProducts():
         return buildResponse(200, body)
     except Exception as e:
         logger.exception(e)
+
+
+
+def saveProduct(requestBody):
+    try:
+        table.put_item(
+            Item=requestBody
+        )
+        body = {
+            'Operation': 'Save',
+            'Message': 'Success',
+            'Product': requestBody
+        }
+
+        return buildResponse(200, body)
+
+    except Exception as e:
+        logger.exception(e)        
