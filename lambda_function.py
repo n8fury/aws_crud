@@ -118,4 +118,26 @@ def saveProduct(requestBody):
         return buildResponse(200, body)
 
     except Exception as e:
-        logger.exception(e)        
+        logger.exception(e)
+
+
+def modifyProduct(productID, updateKey, updateValue):
+    try:
+        response = table.update_item(
+            Key={
+                'productId': productID
+            },
+            UpdateExpression='set {} = :value'.format(updateKey),
+            ExpressionAttributeValues={
+                ':value': updateValue
+            },
+            ReturnValues='UPDATED_NEW'
+        )
+        body = {
+            'Operation': 'UPDATE',
+            'Message': 'Success',
+            'UpdatedAttributes': response['Attributes']
+        }
+        return buildResponse(200, body)
+    except Exception as e:
+        logger.exception(e)                
